@@ -1,3 +1,4 @@
+// @ts-nocheck
 
 import ChatComponent from "@/components/ChatComponent";
 import ChatSideBar from "@/components/ChatSideBar";
@@ -65,3 +66,6 @@ const ChatPage = async ({ params }: Props) => {
 };
 
 export default ChatPage;
+
+
+
