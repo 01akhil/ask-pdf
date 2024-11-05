@@ -1,6 +1,6 @@
 
 
-import { text } from "stream/consumers";
+// import { text } from "stream/consumers";
 
 import { GoogleGenerativeAI } from "@google/generative-ai";
 const genAI = new GoogleGenerativeAI(process.env.API_KEY);

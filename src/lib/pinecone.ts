@@ -77,23 +77,43 @@ export async function loadCloudinaryIntoPinecone(fileKey: string, url: string) {
   };
 
   async function prepareDocument(page: PDFPage) {
-    let { pageContent, metadata } = page;
-    pageContent = pageContent.replace(/\n/g, "");
-    // split the docs
+    const { pageContent, metadata } = page; // Use const for destructuring
+    const cleanedPageContent = pageContent.replace(/\n/g, "");
+
+    // Split the docs
     const splitter = new RecursiveCharacterTextSplitter();
     const docs = await splitter.splitDocuments([
-      new Document({
-        pageContent,
-        metadata: {
-          pageNumber: metadata.loc.pageNumber,
-          text: truncateStringByBytes(pageContent, 36000),
-        },
-      }),
+        new Document({
+            pageContent: cleanedPageContent,
+            metadata: {
+                pageNumber: metadata.loc.pageNumber,
+                text: truncateStringByBytes(cleanedPageContent, 36000),
+            },
+        }),
     ]);
 
-    console.log("the new doc is ", docs)
+    console.log("the new doc is ", docs);
     return docs;
-  }
+}
+
+  // async function prepareDocument(page: PDFPage) {
+  //   let { pageContent, metadata } = page;
+  //   pageContent = pageContent.replace(/\n/g, "");
+  //   // split the docs
+  //   const splitter = new RecursiveCharacterTextSplitter();
+  //   const docs = await splitter.splitDocuments([
+  //     new Document({
+  //       pageContent,
+  //       metadata: {
+  //         pageNumber: metadata.loc.pageNumber,
+  //         text: truncateStringByBytes(pageContent, 36000),
+  //       },
+  //     }),
+  //   ]);
+
+  //   console.log("the new doc is ", docs)
+  //   return docs;
+  // }
 
 
 
